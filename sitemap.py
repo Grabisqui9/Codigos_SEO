@@ -18,11 +18,13 @@ def gerar_sitemap_xml_completo(urls, changefreq, priority):
     # Pega a data e hora atuais em UTC no formato completo (YYYY-MM-DDTHH:MM:SS+00:00)
     lastmod_date = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S+00:00")
 
-xml_parts = [
-    '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-]
-    
+    # Lista de partes do XML para montar a string final (linha do comentário removida)
+    xml_parts = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+    ]
+
+    # Itera sobre cada URL na lista fornecida
     for url in urls:
         # Limpa a URL de espaços em branco para garantir um XML válido
         clean_url = url.strip()
@@ -39,7 +41,7 @@ xml_parts = [
     # Adiciona a tag de fechamento do urlset
     xml_parts.append('</urlset>')
 
-    
+    # Junta todas as partes com quebras de linha para formar o arquivo XML
     return "\n".join(xml_parts)
 
 # --- Interface do Streamlit ---
@@ -104,7 +106,7 @@ if uploaded_file is not None:
 
 
 if "sitemap_gerado" in st.session_state and st.session_state.sitemap_gerado:
-    st.subheader("4. Renomeie e Baixe") # Nova subseção
+    st.subheader("4. Renomeie e Baixe")
 
     # Campo para o usuário inserir o nome do arquivo
     file_name_input = st.text_input(
@@ -113,11 +115,11 @@ if "sitemap_gerado" in st.session_state and st.session_state.sitemap_gerado:
         help="Insira o nome do arquivo desejado. A extensão .xml será adicionada se não estiver presente."
     )
 
-   
-    if not file_name_input.endswith('.xml'):
-        download_file_name = f"{file_name_input}.xml"
+    # Garante que o nome do arquivo termina com .xml
+    if not file_name_input.strip().endswith('.xml'):
+        download_file_name = f"{file_name_input.strip()}.xml"
     else:
-        download_file_name = file_name_input
+        download_file_name = file_name_input.strip()
 
     st.download_button(
        label="📥 Baixar sitemap.xml",
