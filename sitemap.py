@@ -18,14 +18,14 @@ def gerar_sitemap_xml_completo(urls, changefreq, priority):
     # Pega a data e hora atuais em UTC no formato completo (YYYY-MM-DDTHH:MM:SS+00:00)
     lastmod_date = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S+00:00")
 
-    # Inicia a construção do arquivo XML como uma lista de strings
+    
     xml_parts = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<!-- This XML file does not appear to have any style information associated with it. The document tree is shown below. -->',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
     ]
 
-    # Adiciona uma entrada <url> para cada URL da lista
+   
     for url in urls:
         # Limpa a URL de espaços em branco para garantir um XML válido
         clean_url = url.strip()
@@ -42,7 +42,7 @@ def gerar_sitemap_xml_completo(urls, changefreq, priority):
     # Adiciona a tag de fechamento do urlset
     xml_parts.append('</urlset>')
 
-    # Junta todas as partes com quebras de linha para formar o arquivo final
+    
     return "\n".join(xml_parts)
 
 # --- Interface do Streamlit ---
@@ -80,7 +80,7 @@ with col2:
 
 st.markdown("---")
 
-# Processamento ocorre após o upload do arquivo
+
 if uploaded_file is not None:
     try:
         string_data = uploaded_file.getvalue().decode("utf-8")
@@ -105,7 +105,7 @@ if uploaded_file is not None:
         st.error(f"Ocorreu um erro ao processar o arquivo: {e}")
         st.error("Por favor, verifique se o arquivo está no formato UTF-8 e contém uma URL válida por linha.")
 
-# Seção de download e prévia aparecem se o sitemap foi gerado
+
 if "sitemap_gerado" in st.session_state and st.session_state.sitemap_gerado:
     st.subheader("4. Renomeie e Baixe") # Nova subseção
 
@@ -116,7 +116,7 @@ if "sitemap_gerado" in st.session_state and st.session_state.sitemap_gerado:
         help="Insira o nome do arquivo desejado. A extensão .xml será adicionada se não estiver presente."
     )
 
-    # Garante que o nome do arquivo termine com .xml
+   
     if not file_name_input.endswith('.xml'):
         download_file_name = f"{file_name_input}.xml"
     else:
@@ -132,6 +132,6 @@ if "sitemap_gerado" in st.session_state and st.session_state.sitemap_gerado:
     st.subheader("Prévia do XML Gerado")
     st.code(st.session_state.sitemap_gerado, language='xml', line_numbers=True)
 
-# Adicionando os créditos no final da página
+
 st.markdown("---")
 st.markdown("Desenvolvido por Giovanni Grabski.")
