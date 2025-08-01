@@ -18,6 +18,11 @@ def gerar_sitemap_xml_completo(urls, changefreq, priority):
     # Pega a data e hora atuais em UTC no formato completo (YYYY-MM-DDTHH:MM:SS+00:00)
     lastmod_date = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S+00:00")
 
+xml_parts = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+]
+    
     for url in urls:
         # Limpa a URL de espaços em branco para garantir um XML válido
         clean_url = url.strip()
