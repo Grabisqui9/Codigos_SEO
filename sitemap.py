@@ -18,7 +18,8 @@ def gerar_sitemap_xml_completo(urls, changefreq, priority):
     # Pega a data e hora atuais em UTC no formato completo (YYYY-MM-DDTHH:MM:SS+00:00)
     lastmod_date = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S+00:00")
 
-    # Lista de partes do XML para montar a string final (linha do comentário removida)
+    # --- ALTERAÇÃO 1: A linha do comentário foi removida daqui ---
+    # Agora o XML é gerado sem informações desnecessárias.
     xml_parts = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
@@ -127,6 +128,10 @@ if "sitemap_gerado" in st.session_state and st.session_state.sitemap_gerado:
        file_name=download_file_name, # Usa o nome do arquivo do campo de texto
        mime="application/xml"
     )
+
+    # --- ALTERAÇÃO 2: Adicionada uma dica para o usuário ---
+    # Isso resolve o problema de o nome do arquivo não ser atualizado no primeiro clique.
+    st.caption("Dica: Se o nome do arquivo não atualizar no download, pressione 'Enter' no campo de nome antes de clicar em baixar.")
     
     st.subheader("Prévia do XML Gerado")
     st.code(st.session_state.sitemap_gerado, language='xml', line_numbers=True)
